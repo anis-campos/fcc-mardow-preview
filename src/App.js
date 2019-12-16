@@ -6,6 +6,9 @@ const Editor = function () {
     return (
         <div>
             This is the editor
+            <ul>
+                {new Array(50).fill(0).map((x, i) => <li key={i}>Item n{i}</li>)}
+            </ul>
         </div>
     );
 };
@@ -27,7 +30,7 @@ function App() {
 
             <header className="App-header">
 
-                <SplitPane  panes={[Editor, Viewer]}/>
+                <SplitPane panes={[Editor, Viewer]}/>
             </header>
         </div>
     );

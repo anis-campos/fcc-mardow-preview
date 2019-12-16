@@ -1,21 +1,16 @@
-.App {
-    text-align: center;
-}
 
 .App-header {
     background-color: #282c34;
     height: 100vh;
-    overflow: scroll;
+    margin: 0;
+    overflow: hidden;
     font-size: calc(10px + 2vmin);
     color: white;
 }
 
-html, body {
-    margin: 0;
-    height: 100%;
-    overflow: hidden
+.split-pane-wrapper{
+    overflow: hidden;
 }
-
 
 .split-pane {
     width: 100%;
@@ -23,13 +18,15 @@ html, body {
     display: flex;
 }
 
-.split-pane-header {
-    height: 10vh;
-}
 
 .pane {
     flex: 1;
-    overflow: hidden;
+    overflow-y: auto;
+}
+
+
+.pane.drag {
+    flex: none !important;
 }
 
 
@@ -46,7 +43,29 @@ html, body {
     cursor: row-resize;
 }
 
+
+
+.pane > * {
+    padding: 1em;
+}
+
+
 .disable-selection .pane.pane-col {
     cursor: col-resize;
 }
 
+
+
+.pane::-webkit-scrollbar {
+    width: 0.4em;
+}
+
+.pane::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.3);
+}
+
+.pane::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    border-radius: 2px;
+
+}

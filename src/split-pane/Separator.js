@@ -1,64 +1,61 @@
 /** @jsx jsx */
 import {jsx} from '@emotion/core'
 
-import styled from "@emotion/styled/macro";
+import css from "@emotion/css/macro";
 import {VERTICAL} from "./constants";
 import PropTypes from "prop-types";
 
-const VerticalBar = styled.div`
+const VerticalBar = css`
                 background-color: white;
                 width:   2px;
                 height:  100% ;
-                cursor:col-resize ;
-             
+                cursor:inherit ;
 `;
 
 
-const HorizontalBar = styled.div`
+const HorizontalBar = css`
                 background-color: white;
                 height:   2px;
                 width:  100% ;
-                cursor:col-resize ;
+                cursor:inherit ;
              
 `;
 
-const VerticalWrapper = styled.div`
-position: absolute;
-display: flex;
+const VerticalWrapper = css`
+                display: flex;
                 flex-direction: column;
                 align-items: center;
-                top: 0;
-                bottom: 0;
-                left: ${props=>props.val}px;
                 width:   10px;
-                height:  100% ;
+                height:  90vh ;
                 cursor:col-resize ;
              
 `;
 
-const HorizontalWrapper = styled.div`
+const HorizontalWrapper = css`
+                display: flex;
                 flex-direction: row;
                 align-items: center;
-                top: 0;
-                left: 0;
-                right: 0;
-                height:   10px;
-                width:  100% ;
+                width:   100vw;
+                height:  10px;
+                
                 cursor:row-resize ;
              
 `;
 
 export function Separator(props) {
-    const {onMouseDown, direction} = props;
+    const {onMouseDown, direction, firstBounds} = props;
 
-    const Bar = direction === VERTICAL ? VerticalBar : HorizontalBar;
-    const Wrapper = direction === VERTICAL ? VerticalWrapper : HorizontalWrapper;
+    const bar = direction === VERTICAL ? VerticalBar : HorizontalBar,
+        wrapper = direction === VERTICAL ? VerticalWrapper : HorizontalWrapper,
+        bounds = firstBounds || {w: 0, h: 0},
+        w = direction === VERTICAL ? bounds.w : bounds.h;
 
-    const w = direction === VERTICAL ? (props.firstBounds || {w: document.documentElement.clientWidth / 2}).w :
-        (props.firstBounds || {h: document.documentElement.clientHeight * 4 / 5}).h;
+    console.log(w);
 
     return (
-        <Wrapper className="separator" val={w} onMouseDown={onMouseDown}> <Bar/></Wrapper>
+        <div className="separator" css={wrapper} onMouseDown={onMouseDown}>
+            <div css={bar}/>
+        </div>
     )
 }
 

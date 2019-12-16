@@ -1,54 +1,41 @@
-
-import React,{useEffect, useState, createRef} from "react";
+import React, {useEffect, useState, createRef} from "react";
 import {VERTICAL, HORIZONTAL} from "./constants";
 import PropTypes from "prop-types";
 
 export function Pane(props) {
     const {component: P, direction, num, firstBounds, setFirstBounds} = props;
 
-    const ref = createRef();
+    let ref = createRef();
 
     const [localDirection, setLocalDirection] = useState(null);
 
 
+
     if (localDirection && localDirection !== direction) {
-        ref.current.style.flex = "1";
+        setLocalDirection(direction);
+
     }
 
-
-    useEffect(() => {
-
-        if (num === 1) {
-
-            if (!firstBounds) {
-                setFirstBounds({h: ref.current.clientHeight, w: ref.current.clientWidth});
-                ref.current.style.flex = "none";
-                return
-            }
-
-            if (localDirection && localDirection !== direction) {
-                setLocalDirection(direction);
-                setFirstBounds({h: ref.current.clientHeight, w: ref.current.clientWidth});
-                ref.current.style.flex = "none";
-                return
-            }
+    console.log(firstBounds);
 
 
-            if (direction === VERTICAL) {
-                ref.current.style.width = `${firstBounds.w}px`;
-            } else
-                ref.current.style.height = `${firstBounds.h}px`;
-        }
-
-    });
 
     const map = {};
     map[VERTICAL] = ['left', 'right'];
     map[HORIZONTAL] = ['top', 'bottom'];
 
 
+    const style = firstBounds ? {
+        width: direction===VERTICAL?`${firstBounds.w}px`:null,
+        height: direction===HORIZONTAL?`${firstBounds.h}px`:null,
+    } : {};
+
     return (<div ref={ref}
-                 className={`pane pane-${direction === VERTICAL ? 'col' : 'row'} pane-${map[direction][num - 1]}`}><P/>
+                 style={
+                     style
+                 }
+                 className={`pane pane-${direction === VERTICAL ? 'col' : 'row'} pane-${map[direction][num - 1]} ${firstBounds?'drag':''}`}>
+        <P className="pane-content"/>
     </div>);
 }
 
