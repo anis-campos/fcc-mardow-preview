@@ -26,12 +26,7 @@ function App() {
 
     return (
         <div className="App">
-
-
-            <header className="App-header">
-
                 <SplitPane panes={[Editor, Viewer]}/>
-            </header>
         </div>
     );
 }

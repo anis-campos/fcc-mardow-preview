@@ -1,9 +1,9 @@
-import React, {useState, createRef} from "react";
-import {VERTICAL, HORIZONTAL} from "./constants";
+import React from "react";
+import {VERTICAL, HORIZONTAL, BOTH, EDITOR, PREVIEW} from "./constants";
 import PropTypes from "prop-types";
 
 export function Pane(props) {
-    const {component: P, direction, num, size} = props;
+    const {component: PaneContent, direction, num, size,state} = props;
 
     const map = {};
     map[VERTICAL] = ['left', 'right'];
@@ -17,8 +17,8 @@ export function Pane(props) {
 
     return (
         <div style={ style }
-                 className={`pane pane-${direction === VERTICAL ? 'col' : 'row'} pane-${map[direction][num - 1]} ${size?'drag':''}`}>
-        <P className="pane-content"/>
+                 className={`pane pane-${direction === VERTICAL ? 'col' : 'row'} pane-${map[direction][num - 1]} ${size&&state===BOTH?'drag':''}`}>
+        <PaneContent className="pane-content"/>
     </div>);
 }
 
@@ -26,5 +26,6 @@ Pane.propTypes = {
     component: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
     direction: PropTypes.number.isRequired,
     num: PropTypes.number.isRequired,
-    size: PropTypes.object
+    size: PropTypes.object,
+    state: PropTypes.oneOf([BOTH,EDITOR,PREVIEW]).isRequired
 };
