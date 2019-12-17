@@ -1,20 +1,15 @@
-
 .split-pane-wrapper {
     overflow: hidden;
 }
-
-.split-pane {
-    width: 100%;
-    height: 90vh;
-    display: flex;
-}
-
 
 .pane {
     flex: 1;
     overflow-y: auto;
 }
 
+.pane > * {
+    padding: 1em;
+}
 
 .pane.drag {
     flex: none !important;
@@ -28,17 +23,9 @@
     -webkit-user-select: none; /* Chrome, Safari, and Opera */
     -webkit-touch-callout: none; /* Disable Android and iOS callouts*/
 }
-
-
 .disable-selection .pane.pane-row {
     cursor: row-resize;
 }
-
-
-.pane > * {
-    padding: 1em;
-}
-
 
 .disable-selection .pane.pane-col {
     cursor: col-resize;

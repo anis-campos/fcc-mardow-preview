@@ -1,3 +1,7 @@
+/** @jsx jsx */
+import {jsx} from '@emotion/core'
+
+import css from "@emotion/css/macro";
 import React, {useEffect, useRef, useState} from "react";
 import PropTypes from "prop-types";
 import {Pane} from "./Pane";
@@ -93,11 +97,15 @@ export function Wrapper({panes, ...props}) {
     )
     ;
 
+    const SplitPane = css`    
+    width: 100%;
+    height: 90vh;
+    display: flex;`;
 
     return (
         <div {...props} className={`split-pane-wrapper ${pos ? 'disable-selection' : ''}`}>
             <Header toggleDirection={toggleDirection}/>
-            <div className={"split-pane"} ref={ref}>
+            <div className={"split-pane"} ref={ref} css={SplitPane} >
                 <Pane component={pane1} direction={direction} num={1} size={firstPaneSize}  />
                 <Separator onMouseDown={onMouseDown} direction={direction} />
                 <Pane component={pane2} direction={direction} num={2}/>
