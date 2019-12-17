@@ -43,14 +43,11 @@ const HorizontalWrapper = css`
 `;
 
 export function Separator(props) {
-    const {onMouseDown, direction, firstBounds} = props;
+    const {onMouseDown, direction} = props;
 
     const bar = direction === VERTICAL ? VerticalBar : HorizontalBar,
-        wrapper = direction === VERTICAL ? VerticalWrapper : HorizontalWrapper,
-        bounds = firstBounds || {w: 0, h: 0},
-        w = direction === VERTICAL ? bounds.w : bounds.h;
+        wrapper = direction === VERTICAL ? VerticalWrapper : HorizontalWrapper;
 
-    console.log(w);
 
     return (
         <div className="separator" css={wrapper} onMouseDown={onMouseDown}>

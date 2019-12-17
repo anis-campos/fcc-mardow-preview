@@ -10,7 +10,7 @@ export function Wrapper({panes, ...props}) {
 
     const [pos, setPos] = useState(null);
     const [direction, setDirection] = useState(props.direction);
-    const [firstBounds, setFirstBounds] = useState(null);
+    const [firstPaneSize, setFirstPaneSize] = useState(null);
 
     const ref = useRef(null);
 
@@ -33,37 +33,37 @@ export function Wrapper({panes, ...props}) {
         const maxH = document.documentElement.clientHeight * 62 / 100;
 
         const newSizeFirst = direction === VERTICAL ?
-            {w: e.clientX, h: firstBounds.h}
-            : {w: firstBounds.w, h: e.clientY - hOffset};
+            {w: e.clientX, h: firstPaneSize.h}
+            : {w: firstPaneSize.w, h: e.clientY - hOffset};
 
         newSizeFirst.w = newSizeFirst.w < minW ? minW : newSizeFirst.w > maxW ? maxW : newSizeFirst.w;
         newSizeFirst.h = newSizeFirst.h < minH ? minH : newSizeFirst.h > maxH ? maxH : newSizeFirst.h;
 
         setPos({x: e.clientX, y: e.clientY});
 
-        setFirstBounds(newSizeFirst)
+        setFirstPaneSize(newSizeFirst)
 
     };
 
     const [pane1, pane2] = panes;
     const toggleDirection = () => {
-        console.log("CHANGING DIRECTION")
+        console.log("CHANGING DIRECTION");
         setDirection(direction === VERTICAL ? HORIZONTAL : VERTICAL);
-        setFirstBounds(null);
+        setFirstPaneSize(null);
         setPos(null)
     };
 
 
     const onResize = () => {
-        setFirstBounds(null);
+        setFirstPaneSize(null);
         setPos(null)
     };
 
     useEffect(() => {
 
 
-            if (!firstBounds)
-                setFirstBounds({
+            if (!firstPaneSize)
+                setFirstPaneSize({
                         w: document.documentElement.clientWidth / 2,
                         h: document.documentElement.clientHeight * 4 / 10
                     }
@@ -98,9 +98,8 @@ export function Wrapper({panes, ...props}) {
         <div {...props} className={`split-pane-wrapper ${pos ? 'disable-selection' : ''}`}>
             <Header toggleDirection={toggleDirection}/>
             <div className={"split-pane"} ref={ref}>
-                <Pane component={pane1} direction={direction} num={1} firstBounds={firstBounds}
-                      setFirstBounds={setFirstBounds}/>
-                <Separator onMouseDown={onMouseDown} direction={direction} firstBounds={firstBounds}/>
+                <Pane component={pane1} direction={direction} num={1} size={firstPaneSize}  />
+                <Separator onMouseDown={onMouseDown} direction={direction} />
                 <Pane component={pane2} direction={direction} num={2}/>
             </div>
         </div>
