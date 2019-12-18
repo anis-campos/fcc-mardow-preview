@@ -1,22 +1,18 @@
-import React from 'react';
+/** @jsx jsx */
+import {jsx} from '@emotion/core'
 import './App.css';
 import {SplitPane} from "./split-pane";
+import css from '@emotion/css/macro'
 
 const Editor = function () {
     return (
-        <div>
-            This is the editor
-            <ul>
-                {new Array(50).fill(0).map((x, i) => <li key={i}>Item n{i}</li>)}
-            </ul>
-        </div>
+            <textarea css={css`width: 100%; flex: 1; resize:none`}/>
     );
 };
 
 const Viewer = function () {
     return (
         <div>
-            This is the viewer
         </div>
     );
 };
@@ -26,7 +22,7 @@ function App() {
 
     return (
         <div className="App">
-                <SplitPane panes={[Editor, Viewer]}/>
+            <SplitPane panes={[Editor, Viewer]} titles={["Markdown Editor","Preview"]}/>
         </div>
     );
 }
