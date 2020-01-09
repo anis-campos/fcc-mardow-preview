@@ -1,16 +1,16 @@
 /** @jsx jsx */
 import {jsx} from '@emotion/core'
 import css from "@emotion/css/macro";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {SplitPane} from "./split-pane";
 import marked from 'marked';
 import prismjs from 'prismjs';
 import 'prismjs/themes/prism-solarizedlight.css'
-
+import defaultMd from './test.md'
 
 const renderer = new marked.Renderer();
 
-renderer.code = function(code, lang, escaped) {
+renderer.code = function (code, lang, escaped) {
     code = this.options.highlight(code, lang);
     if (!lang) {
         return `<pre><code>${code}</code></pre>`;
@@ -22,10 +22,9 @@ renderer.code = function(code, lang, escaped) {
 
 marked.setOptions({
     renderer,
-    highlight: function(code, lang) {
+    highlight: function (code, lang) {
         try {
-
-            const encoded= prismjs.highlight(code, prismjs.languages[lang], lang);
+            const encoded = prismjs.highlight(code, prismjs.languages[lang], lang);
             debugger;
             return encoded
         } catch {
@@ -36,21 +35,30 @@ marked.setOptions({
 
 const Viewer = function (props) {
     return (
-        <div css={css`width: 100%; flex: 1; overflow: auto;align-items: flex-start;`}
-             dangerouslySetInnerHTML={{'__html': marked(props.md)}}/>
+        <div id={'preview'} css={css`width: 100%; flex: 1; overflow: auto;align-items: flex-start;`}
+             dangerouslySetInnerHTML={{'__html': marked(props.md, {breaks: true})}}/>
     );
 };
 
 const Editor = function (props) {
     return (
-        <textarea value={props.md} onChange={props.onEditorChanged}
+        <textarea id={'editor'} value={props.md} onChange={props.onEditorChanged}
                   css={css`width: 100%; flex: 1; resize:none`}/>
     );
 };
 
 export function Markdown() {
 
-    const [md, setMd] = useState('');
+    const [md, setMd] = useState('   ');
+
+    useEffect(() => {
+        if (md === '   ')
+            fetch(defaultMd).then(response => {
+                return response.text()
+            }).then(text => {
+                setMd(text)
+            })
+    });
 
     function onEditorChanged(e) {
         setMd(e.target.value);
