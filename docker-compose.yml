@@ -1,0 +1,13 @@
+version: '3'
+services:
+  web:
+    image: 'node:alpine'
+    volumes:
+    - ./:/home/node/app
+    ports:
+    - '3000:3000'
+    restart: 'no'
+    working_dir: '/home/node/app'
+    user: 'node'
+    command: 'npm start'
+

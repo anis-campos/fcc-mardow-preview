@@ -9,7 +9,7 @@ import {Separator} from "./Separator";
 import {BOTH, EDITOR, HORIZONTAL, PREVIEW, VERTICAL} from "./constants";
 import {Header} from "./Header";
 
-export function Wrapper({panes,titles, ...props}) {
+export function Wrapper({titles, ...props}) {
 
 
     const [pos, setPos] = useState(null);
@@ -30,7 +30,7 @@ export function Wrapper({panes,titles, ...props}) {
 
 
 
-    const [pane1, pane2] = panes;
+    const [pane1, pane2] = props.children;
     const [pane1Title, pane2Title] = titles;
     const toggleDirection = () => {
         console.log("CHANGING DIRECTION");
@@ -110,14 +110,13 @@ export function Wrapper({panes,titles, ...props}) {
     width: 100%;
     height: 90vh;
     display: flex;`;
-
     return (
         <div {...props} className={`split-pane-wrapper ${pos ? 'disable-selection' : ''}`}>
             <Header direction={direction}  toggleDirection={toggleDirection} setEditorState={onStateChange} editorState={editorState}/>
             <div className={"split-pane"} ref={ref} css={SplitPane} >
-                {editorState !== PREVIEW &&  <Pane title={pane1Title} state={editorState} component={pane1} direction={direction} num={1} size={firstPaneSize}  />}
+                {editorState !== PREVIEW &&  <Pane title={pane1.props.title} state={editorState} component={pane1} direction={direction} num={1} size={firstPaneSize}  />}
                 {editorState === BOTH &&  <Separator onMouseDown={onMouseDown} direction={direction} />}
-                {editorState !== EDITOR && <Pane  title={pane2Title} state={editorState} component={pane2} direction={direction} num={2}/> }
+                {editorState !== EDITOR && <Pane  title={pane2.props.title} state={editorState} component={pane2} direction={direction} num={2}/> }
             </div>
         </div>
     );

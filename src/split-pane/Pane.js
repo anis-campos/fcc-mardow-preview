@@ -26,7 +26,7 @@ export function Pane(props) {
         <div style={style}
              className={`pane pane-${direction === VERTICAL ? 'col' : 'row'} pane-${map[direction][num - 1]} ${size && state === BOTH ? 'drag' : ''}`}>
             {title && <Title val={title}/>}
-            <div className="pane-content"><PaneContent/></div>
+            <div className="pane-content">{PaneContent}</div>
 
         </div>);
 }
