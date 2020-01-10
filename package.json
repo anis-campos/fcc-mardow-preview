@@ -2,6 +2,7 @@
   "name": "fcc-markdown",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://anis-campos.github.io/fcc-mardow-preview/",
   "dependencies": {
     "@emotion/core": "latest",
     "@emotion/css": "latest",
@@ -13,14 +14,15 @@
     "prop-types": "latest",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "react-scripts": "^3.3.0",
-    "react-split": "^2.0.7"
+    "react-scripts": "^3.3.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -38,6 +40,6 @@
     ]
   },
   "devDependencies": {
-    "markdown-it-highlight": "^0.2.0"
+    "gh-pages": "^2.2.0"
   }
 }
