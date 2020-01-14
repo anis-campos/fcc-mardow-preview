@@ -6,9 +6,9 @@ import PropTypes from "prop-types";
 import {
     FormatListNumbered as EditorIcon,
     Pageview as PreviewIcon,
+    ViewArray as Ver,
     ViewCompact as Both,
-    ViewDay as Hor,
-    ViewArray as Ver
+    ViewDay as Hor
 } from '@material-ui/icons'
 import {Button, ButtonGroup} from '@material-ui/core'
 import {BOTH, EDITOR, PREVIEW, VERTICAL} from "./constants";
@@ -16,6 +16,7 @@ import {BOTH, EDITOR, PREVIEW, VERTICAL} from "./constants";
 export const Header = (props) => {
 
     const DirectionIcon = props.direction === VERTICAL ? Ver : Hor;
+    const title = props.title || "SplitPane Title";
     return (
         <div className={"split-pane-header"}
              css={css`
@@ -26,7 +27,7 @@ export const Header = (props) => {
                         height: 10vh;
                         padding: 10px 50px 0 50px;
              `}>
-            <span>Markdown Editor</span>
+            <span>{title}</span>
 
 
             <Button color="primary" variant="contained" onClick={props.toggleDirection}><DirectionIcon/>

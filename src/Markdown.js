@@ -10,7 +10,7 @@ import defaultMd from './test.md'
 
 const renderer = new marked.Renderer();
 
-renderer.code = function (code, lang, escaped) {
+renderer.code = function (code, lang) {
     code = this.options.highlight(code, lang);
     if (!lang) {
         return `<pre><code>${code}</code></pre>`;
@@ -65,7 +65,7 @@ export function Markdown() {
     }
 
     return (
-        <SplitPane>
+        <SplitPane header={{title: "Markdown"}}>
             <Editor title={"Markdown Editor"} md={md} onEditorChanged={onEditorChanged}/>
             <Viewer title={"Preview"} md={md}/>
         </SplitPane>

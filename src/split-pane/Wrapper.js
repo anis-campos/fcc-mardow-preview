@@ -112,7 +112,8 @@ export function Wrapper({titles, ...props}) {
     display: flex;`;
     return (
         <div {...props} className={`split-pane-wrapper ${pos ? 'disable-selection' : ''}`}>
-            <Header direction={direction} toggleDirection={toggleDirection} setEditorState={onStateChange}
+            <Header direction={direction} {...props.header} toggleDirection={toggleDirection}
+                    setEditorState={onStateChange}
                     editorState={editorState}/>
             <div className={"split-pane"} ref={ref} css={SplitPane}>
                 {editorState !== PREVIEW &&
