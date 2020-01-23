@@ -25,7 +25,6 @@ marked.setOptions({
     highlight: function (code, lang) {
         try {
             const encoded = prismjs.highlight(code, prismjs.languages[lang], lang);
-            debugger;
             return encoded
         } catch {
             return code;
