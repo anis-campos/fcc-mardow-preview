@@ -9,7 +9,7 @@
     "@emotion/styled": "latest",
     "@material-ui/core": "^4.8.0",
     "@material-ui/icons": "^4.5.1",
-    "marked": "^0.8.0",
+    "marked": "^4.0.10",
     "prismjs": "latest",
     "prop-types": "latest",
     "react": "^16.12.0",
